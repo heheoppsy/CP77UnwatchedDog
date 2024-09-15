@@ -48,13 +48,13 @@ namespace M {
 		}
 
 		else {
+			#ifdef _DEBUG
 			std::wstring t = U::csToWstring(pat);
 			std::wstring c = L"Error in PatternPatch()\nPattern wasn't found\n\n" + t;
-			#ifdef _DEBUG
-				std::wcout << c << std::endl;
+			std::wcout << c << std::endl;
+			//LPCWSTR out = c.c_str();
+			//MessageBoxW(NULL, out, L"UnwatchedDog", MB_OK | MB_ICONERROR | MB_SYSTEMMODAL);
 			#endif
-			LPCWSTR out = c.c_str();
-			MessageBoxW(NULL, out, L"UnwatchedDog", MB_OK | MB_ICONERROR | MB_SYSTEMMODAL);
 			return 0;
 		}
 	}
