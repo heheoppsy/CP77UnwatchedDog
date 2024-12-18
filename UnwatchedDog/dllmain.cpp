@@ -12,16 +12,16 @@ DWORD Patch() {
 
     int test_13 = wcscmp(fileVer, L"2.13");
     int test_12 = wcscmp(fileVer, L"2.12");
+    int test_20 = wcscmp(fileVer, L"2.2");
 
-    if (test_12 == 0 && test_13 == 0) {
-        MessageBoxW(NULL, L"Watchdog was NOT patched!\n\nVersion not matched (2.12 or 2.13)", L"UnwatchedDog", MB_OK | MB_ICONERROR | MB_SYSTEMMODAL);
+    if (test_12 != 0 && test_13 != 0 && test_20 != 0) {
+        MessageBoxW(NULL, L"Watchdog was NOT patched!\n\nVersion not matched\n(2.12, 2.13, or 2.2)", L"UnwatchedDog", MB_OK | MB_ICONERROR | MB_SYSTEMMODAL);
         return NULL;
     }
-
-    if (test_13 == 0) {
-        // Watchdog exitproc 2.13
+    if (test_20 == 0 || test_13 == 0) {
+        // Watchdog exitproc 2.13 AND 2.2
         if (M::PatternPatch("74 ? 8B 05 ? ? ? ? 4C 8D 0D", "Cyberpunk2077.exe", "\xEB", 1, 0)) {
-            MessageBoxW(NULL, L"Watchdog was patched!\n\nBe careful, this could have\nunintended consequences!", L"UnwatchedDog (2.13)", MB_OK | MB_ICONWARNING | MB_SYSTEMMODAL);
+            MessageBoxW(NULL, L"Watchdog was patched!\n\nBe careful, this could have\nunintended consequences!", L"UnwatchedDog (2.13 / 2.2)", MB_OK | MB_ICONWARNING | MB_SYSTEMMODAL);
             return NULL;
         }
     }
